@@ -10,13 +10,14 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --bg: #0f172a;
-            --bg-card: rgba(30, 41, 59, 0.5);
-            --bg-card-hover: rgba(30, 41, 59, 0.8);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #14b8a6; /* Teal/Environment nod */
-            --accent-glow: rgba(20, 184, 166, 0.15);
+            /* Subtle Nature / Climate Theme */
+            --bg: #0a1712; /* Deep moss/forest night */
+            --bg-card: rgba(16, 185, 129, 0.03);
+            --bg-card-hover: rgba(16, 185, 129, 0.08);
+            --text-main: #f0fdf4; /* Off-white with a hint of mint */
+            --text-muted: #94a3b8; /* Slate gray for readable contrast */
+            --accent: #10b981; /* Emerald / Leaf Green */
+            --accent-glow: rgba(16, 185, 129, 0.12);
         }
 
         * {
@@ -232,11 +233,14 @@
             .card {
                 grid-template-columns: 1fr 3fr;
             }
+            .card.full-width {
+                grid-template-columns: 1fr;
+            }
         }
 
         .card:hover {
             background: var(--bg-card);
-            border-color: rgba(255,255,255,0.05);
+            border-color: rgba(16, 185, 129, 0.1);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
@@ -296,7 +300,7 @@
         .tag {
             display: inline-flex;
             align-items: center;
-            background: rgba(20, 184, 166, 0.1);
+            background: rgba(16, 185, 129, 0.1);
             color: var(--accent);
             font-size: 0.75rem;
             font-weight: 500;
@@ -307,8 +311,8 @@
 
         /* Tech aesthetic elements */
         .code-snippet {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 23, 18, 0.6);
+            border: 1px solid rgba(16, 185, 129, 0.15);
             border-radius: 0.5rem;
             padding: 1rem;
             font-family: monospace;
@@ -318,9 +322,28 @@
             margin-bottom: 1rem;
         }
         
-        .code-keyword { color: #c678dd; }
-        .code-string { color: #98c379; }
-        .code-comment { color: #5c6370; font-style: italic; }
+        .code-keyword { color: #10b981; }
+        .code-string { color: #fcd34d; }
+        .code-comment { color: #64748b; font-style: italic; }
+
+        /* Button */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
 
     </style>
 </head>
@@ -341,13 +364,16 @@
                 <nav>
                     <ul class="nav-list">
                         <li class="nav-item">
-                            <a href="#experience" class="active"><span class="nav-indicator"></span> Experience</a>
+                            <a href="#education" class="active"><span class="nav-indicator"></span> Education</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#experience"><span class="nav-indicator"></span> Experience</a>
                         </li>
                         <li class="nav-item">
                             <a href="#leadership"><span class="nav-indicator"></span> Leadership</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#education"><span class="nav-indicator"></span> Education</a>
+                            <a href="#contact"><span class="nav-indicator"></span> Contact</a>
                         </li>
                     </ul>
                 </nav>
@@ -362,6 +388,31 @@
 
         <!-- RIGHT SCROLLING CONTENT -->
         <main>
+
+            <!-- EDUCATION & SKILLS SECTION -->
+            <section id="education">
+                <h2 class="section-title">Education & Skills</h2>
+
+                <a href="#" class="card">
+                    <div class="card-date">2022 — 2026</div>
+                    <div class="card-content">
+                        <h3>New York University Abu Dhabi <span class="arrow">↗</span></h3>
+                        <div class="card-subtitle">B.A. Economics (3.71) | Minor in Environmental Studies (4.0)</div>
+                        <p class="card-body">
+                            Global academic rotations at NYU Stern School of Business (New York) and NYU Paris. Focused heavily on environmental economic policy, ESG integration, and macroeconomics.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">C++</span>
+                            <span class="tag">STATA</span>
+                            <span class="tag">GAAP/IFRS</span>
+                            <span class="tag">GRI/SASB</span>
+                            <span class="tag">ESG Metrics</span>
+                        </div>
+                    </div>
+                </a>
+            </section>
+
             <!-- EXPERIENCE SECTION -->
             <section id="experience">
                 <h2 class="section-title">Experience</h2>
@@ -460,29 +511,23 @@
                 </a>
             </section>
 
-            <!-- EDUCATION & SKILLS SECTION -->
-            <section id="education">
-                <h2 class="section-title">Education & Skills</h2>
-
-                <div class="card">
-                    <div class="card-date">2022 — 2026</div>
+            <!-- CONTACT SECTION -->
+            <section id="contact">
+                <h2 class="section-title">Get In Touch</h2>
+                
+                <div class="card full-width">
                     <div class="card-content">
-                        <h3>New York University Abu Dhabi</h3>
-                        <div class="card-subtitle">B.A. Economics (3.71) | Minor in Environmental Studies (4.0)</div>
-                        <p class="card-body">
-                            Global academic rotations at NYU Stern School of Business (New York) and NYU Paris. Focused heavily on environmental economic policy, ESG integration, and macroeconomics.
+                        <h3>Let's Connect</h3>
+                        <p class="card-body" style="margin-bottom: 0;">
+                            I'm always open to discussing environmental policy, sustainable finance, and opportunities to drive global resilience. Whether you have a question or just want to say hi, feel free to reach out!
                         </p>
-                        <div class="tags">
-                            <span class="tag">Python</span>
-                            <span class="tag">C++</span>
-                            <span class="tag">STATA</span>
-                            <span class="tag">GAAP/IFRS</span>
-                            <span class="tag">GRI/SASB</span>
-                            <span class="tag">ESG Metrics</span>
-                        </div>
+                        <a href="mailto:sk9412@nyu.edu" class="btn">
+                            Say Hello
+                        </a>
                     </div>
                 </div>
             </section>
+
         </main>
     </div>
 
@@ -504,8 +549,8 @@
 
         const observerOptions = {
             root: null,
-            rootMargin: '0px',
-            threshold: 0.5
+            rootMargin: '-50% 0px -50% 0px', // Adjusted for better trigger point
+            threshold: 0
         };
 
         const observer = new IntersectionObserver((entries) => {
