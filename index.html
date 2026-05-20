@@ -1,346 +1,527 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sameer Kamran | Economics & Environmental Policy</title>
+    <title>Sameer Kamran | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* CSS Reset & Variables */
         :root {
-            --bg-color: #F9F9F9; /* Very soft off-white/light grey */
-            --text-main: #1C1C1C; /* Charcoal black */
-            --text-muted: #5A5A5A; /* Medium grey */
-            --accent: #4A5D52; /* Very subtle muted sage/slate */
-            --border-color: #E0E0E0;
-            --font-serif: 'Playfair Display', 'Merriweather', serif;
-            --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            --bg: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.5);
+            --bg-card-hover: rgba(30, 41, 59, 0.8);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #14b8a6; /* Teal/Environment nod */
+            --accent-glow: rgba(20, 184, 166, 0.15);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-color);
+            background-color: var(--bg);
             color: var(--text-main);
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            position: relative;
         }
 
-        /* Typography */
-        h1, h2, h3 {
-            font-family: var(--font-serif);
-            font-weight: 600;
+        /* Mouse tracking spotlight effect */
+        .spotlight {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 30;
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), var(--accent-glow), transparent 80%);
         }
 
-        h1 {
-            font-size: 3.5rem;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-        }
-
-        h2 {
-            font-size: 1.75rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-            margin-top: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-main);
-        }
-
-        h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.25rem;
-        }
-
-        p {
-            margin-bottom: 1rem;
-            color: var(--text-muted);
+        ::selection {
+            background-color: var(--accent);
+            color: var(--bg);
         }
 
         a {
-            color: var(--text-main);
+            color: inherit;
             text-decoration: none;
-            border-bottom: 1px solid var(--accent);
-            transition: all 0.2s ease;
+            transition: color 0.2s ease;
         }
 
         a:hover {
             color: var(--accent);
-            border-bottom: 1px solid transparent;
         }
 
-        /* Layout */
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 0 1.5rem;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Header */
+        @media (min-width: 1024px) {
+            .container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        /* LEFT SIDEBAR */
         header {
-            margin-bottom: 4rem;
+            padding-top: 5rem;
+            padding-bottom: 3rem;
         }
 
-        .subtitle {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
+        @media (min-width: 1024px) {
+            header {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                width: 48%;
+                padding-top: 6rem;
+                padding-bottom: 6rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
         }
 
-        .contact-links {
-            display: flex;
-            gap: 1.5rem;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-        }
-
-        .contact-links a {
-            border-bottom: none;
-            text-decoration: underline;
-            text-decoration-color: var(--border-color);
-        }
-
-        /* Sections */
-        .resume-item {
-            margin-bottom: 2.5rem;
-        }
-
-        .resume-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.5rem;
-        }
-
-        .role-title {
-            font-weight: 600;
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
             color: var(--text-main);
         }
 
-        .company-name {
-            font-style: italic;
-            color: var(--text-muted);
+        h2.subtitle {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-top: 0.5rem;
         }
 
-        .date-location {
-            font-family: var(--font-mono);
+        p.bio {
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            max-width: 320px;
+            font-size: 1.05rem;
+        }
+
+        /* Navigation */
+        nav {
+            margin-top: 4rem;
+            display: none;
+        }
+
+        @media (min-width: 1024px) {
+            nav { display: block; }
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
             font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             color: var(--text-muted);
-            text-align: right;
+            transition: all 0.3s ease;
         }
 
-        ul.bullets {
-            list-style-type: none;
-            margin-left: 0;
+        .nav-indicator {
+            width: 2rem;
+            height: 1px;
+            background-color: var(--text-muted);
+            margin-right: 1rem;
+            transition: all 0.3s ease;
         }
 
-        ul.bullets li {
+        .nav-item a:hover, .nav-item a.active {
+            color: var(--text-main);
+        }
+
+        .nav-item a:hover .nav-indicator, .nav-item a.active .nav-indicator {
+            width: 4rem;
+            background-color: var(--text-main);
+        }
+
+        .socials {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .socials a {
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+        }
+
+        .socials a:hover {
+            color: var(--text-main);
+        }
+
+        /* RIGHT CONTENT */
+        main {
+            padding-top: 3rem;
+            padding-bottom: 6rem;
+        }
+
+        @media (min-width: 1024px) {
+            main {
+                width: 50%;
+                padding-top: 6rem;
+            }
+        }
+
+        section {
+            margin-bottom: 6rem;
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+            display: block;
+        }
+
+        @media (min-width: 1024px) {
+            .section-title { display: none; }
+        }
+
+        /* Card Layout */
+        .card {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            background: transparent;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
             position: relative;
-            padding-left: 1.25rem;
-            margin-bottom: 0.5rem;
+            z-index: 10;
+        }
+
+        @media (min-width: 640px) {
+            .card {
+                grid-template-columns: 1fr 3fr;
+            }
+        }
+
+        .card:hover {
+            background: var(--bg-card);
+            border-color: rgba(255,255,255,0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-date {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
             color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .card-content h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card-content h3 .arrow {
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        
+        .card:hover .card-content h3 {
+            color: var(--accent);
+        }
+
+        .card:hover .card-content h3 .arrow {
+            transform: translateX(4px) translateY(-4px);
+        }
+
+        .card-subtitle {
             font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
         }
 
-        ul.bullets li::before {
-            content: "—";
-            position: absolute;
-            left: 0;
-            color: var(--border-color);
+        .card-body {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
         }
 
-        /* Skills */
-        .skills-container {
+        /* Tags */
+        .tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
+            margin-top: 1rem;
         }
 
-        .skill-tag {
-            background-color: transparent;
-            border: 1px solid var(--border-color);
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(20, 184, 166, 0.1);
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 500;
             padding: 0.25rem 0.75rem;
-            font-size: 0.85rem;
-            font-family: var(--font-mono);
-            color: var(--text-main);
-            border-radius: 2px;
+            border-radius: 9999px;
+            letter-spacing: 0.025em;
         }
 
-        /* Footer */
-        footer {
-            margin-top: 5rem;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-align: center;
-            font-family: var(--font-mono);
+        /* Tech aesthetic elements */
+        .code-snippet {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #e2e8f0;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
         }
+        
+        .code-keyword { color: #c678dd; }
+        .code-string { color: #98c379; }
+        .code-comment { color: #5c6370; font-style: italic; }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            .resume-header {
-                flex-direction: column;
-            }
-            .date-location {
-                text-align: left;
-                margin-top: 0.25rem;
-            }
-            .contact-links {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>Sameer Kamran</h1>
-        <p class="subtitle">B.A. Economics, Environmental Studies Minor — New York University Abu Dhabi</p>
-        <div class="contact-links">
-            <a href="mailto:sk9412@nyu.edu">sk9412@nyu.edu</a>
-            <a href="https://www.linkedin.com/in/sameerkamran" target="_blank" rel="noopener noreferrer">linkedin.com/in/sameerkamran</a>
-            <span>Abu Dhabi, UAE</span>
-        </div>
-    </header>
+    <div class="spotlight"></div>
 
-    <main>
-        <section id="education">
-            <h2>Education</h2>
-            
-            <div class="resume-item">
-                <div class="resume-header">
-                    <div>
-                        <span class="role-title">New York University Abu Dhabi</span>
+    <div class="container">
+        <!-- LEFT SIDEBAR -->
+        <header>
+            <div>
+                <h1>Sameer Kamran</h1>
+                <h2 class="subtitle">Economist & Environmental Policy Analyst</h2>
+                <p class="bio">
+                    Building the bridge between macroeconomic policy and sustainable ecosystems. Specializing in ESG frameworks, circular economies, and Global South climate resilience.
+                </p>
+
+                <nav>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#experience" class="active"><span class="nav-indicator"></span> Experience</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#leadership"><span class="nav-indicator"></span> Leadership</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#education"><span class="nav-indicator"></span> Education</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="socials">
+                <a href="https://github.com/" target="_blank" aria-label="GitHub"><i data-lucide="github" class="w-6 h-6"></i></a>
+                <a href="https://www.linkedin.com/in/sameerkamran" target="_blank" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                <a href="mailto:sk9412@nyu.edu" aria-label="Email"><i data-lucide="mail" class="w-6 h-6"></i></a>
+            </div>
+        </header>
+
+        <!-- RIGHT SCROLLING CONTENT -->
+        <main>
+            <!-- EXPERIENCE SECTION -->
+            <section id="experience">
+                <h2 class="section-title">Experience</h2>
+
+                <a href="#" class="card">
+                    <div class="card-date">Jan 2025 — Present</div>
+                    <div class="card-content">
+                        <h3>Eco-Awareness Specialist <span class="arrow">↗</span></h3>
+                        <div class="card-subtitle">Polygreen Pollution Control LLC</div>
+                        <p class="card-body">
+                            Spearheaded educational workshops for 250+ residential units, engaging 2,000+ members to drive circular economy solutions. Partnered with Aldar and Tadweer to align operations with the UAE's NetZero 2050 framework.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Circular Economy</span>
+                            <span class="tag">Impact Assessment</span>
+                            <span class="tag">NetZero 2050</span>
+                        </div>
                     </div>
-                    <div class="date-location">Aug 2022 – May 2026<br>Abu Dhabi, UAE</div>
-                </div>
-                <p>Bachelor of Arts in Economics; Minor in Environmental Studies<br>
-                GPA: 3.71/4 (Minor GPA: 4.0)</p>
-                <p><strong>International Experience:</strong><br>
-                NYU College of Arts & Sciences / Stern School of Business (New York City, USA)<br>
-                NYU Paris (Paris, France)</p>
-            </div>
-        </section>
+                </a>
 
-        <section id="experience">
-            <h2>Relevant Experience</h2>
-
-            <div class="resume-item">
-                <div class="resume-header">
-                    <div>
-                        <span class="role-title">Eco-Awareness Specialist and Intern</span><br>
-                        <span class="company-name">Polygreen Pollution Control Proprietorship LLC.</span>
+                <a href="#" class="card">
+                    <div class="card-date">Jun 2025 — Aug 2025</div>
+                    <div class="card-content">
+                        <h3>Sustainable Finance Intern <span class="arrow">↗</span></h3>
+                        <div class="card-subtitle">Pakistan International Airlines</div>
+                        <p class="card-body">
+                            Developed data-driven financial reports for senior management guiding resource allocation. Conducted market research for the acquisition of Sustainable Aviation Fuel (SAF) and identified 7 operational improvement areas via internal audits.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Financial Modeling</span>
+                            <span class="tag">Data Visualization</span>
+                            <span class="tag">SAF Strategy</span>
+                        </div>
                     </div>
-                    <div class="date-location">Jan 2025 – July 2025<br>Abu Dhabi, UAE</div>
-                </div>
-                <ul class="bullets">
-                    <li>Spearhead awareness and educational workshops for 250+ residential units, promoting sustainability and circular economy solutions, directly engaging 2,000+ community members.</li>
-                    <li>Partnered with sustainability organizations and local stakeholders like Aldar and Tadweer to expand outreach efforts, aligning initiatives with the UAE’s NetZero by 2050 goals.</li>
-                    <li>Conduct pre- and post-event impact assessments to evaluate and minimize the environmental footprint of events, optimizing engagement strategies.</li>
-                </ul>
-            </div>
+                </a>
 
-            <div class="resume-item">
-                <div class="resume-header">
-                    <div>
-                        <span class="role-title">Sustainable Finance Intern</span><br>
-                        <span class="company-name">Pakistan International Airlines</span>
+                <a href="#" class="card">
+                    <div class="card-date">Apr 2024 — Jun 2024</div>
+                    <div class="card-content">
+                        <h3>Research Assistant <span class="arrow">↗</span></h3>
+                        <div class="card-subtitle">Mubadala Arabian Center for Climate Sciences</div>
+                        <p class="card-body">
+                            Analyzed ~50 large datasets on fish belts and habitat complexities along the UAE/Oman coasts. Integrated cleaning pipelines in R into MERMAID/ReefCloud to support ecosystem-based conservation strategies.
+                        </p>
+                        
+                        <!-- Tech touch: Code Snippet -->
+                        <div class="code-snippet">
+                            <span class="code-comment"># R Data Pipeline Snippet</span><br>
+                            <span class="code-keyword">library</span>(tidyverse)<br>
+                            clean_data <span class="code-keyword"><-</span> raw_reef_data <span class="code-keyword">%>%</span><br>
+                            &nbsp;&nbsp;filter(habitat_complexity > <span class="code-string">0.8</span>) <span class="code-keyword">%>%</span><br>
+                            &nbsp;&nbsp;mutate(sustainability_index = <span class="code-keyword">calculate_idx</span>())
+                        </div>
+
+                        <div class="tags">
+                            <span class="tag">R Studio</span>
+                            <span class="tag">Data Cleaning</span>
+                            <span class="tag">Marine Ecology</span>
+                        </div>
                     </div>
-                    <div class="date-location">June 2025 – Aug 2025<br>Dubai, UAE</div>
-                </div>
-                <ul class="bullets">
-                    <li>Developed comprehensive financial reports utilizing advanced data visualization tools that became essential resources for 8 senior management meetings.</li>
-                    <li>Conducted market research and industry trend analysis, informing strategy for market expansion and acquisition of Sustainable Aviation Fuel (SAF).</li>
-                    <li>Implemented a strategic framework for ongoing internal audits, identifying 7 key areas for operational improvement and enhancing risk management.</li>
-                    <li>Recommended data-driven strategies for cost optimization, improving resource efficiency and profitability.</li>
-                </ul>
-            </div>
+                </a>
+            </section>
 
-            <div class="resume-item">
-                <div class="resume-header">
-                    <div>
-                        <span class="role-title">Research Assistant</span><br>
-                        <span class="company-name">Mubadala Arabian Center for Climate and Environmental Sciences</span>
+            <!-- LEADERSHIP SECTION -->
+            <section id="leadership">
+                <h2 class="section-title">Leadership & Global Policy</h2>
+
+                <a href="#" class="card">
+                    <div class="card-date">Nov 2025 — Dec 2025</div>
+                    <div class="card-content">
+                        <h3>NYU x UAE Delegate <span class="arrow">↗</span></h3>
+                        <div class="card-subtitle">COP30 Brazil</div>
+                        <p class="card-body">
+                            Participated in high-level negotiations with heads of state and civil society leaders on climate resilience. Strengthened global networks to advance equity-centered initiatives from a Global South perspective.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Climate Policy</span>
+                            <span class="tag">Diplomacy</span>
+                        </div>
                     </div>
-                    <div class="date-location">April 2024 – June 2024<br>Abu Dhabi, UAE</div>
-                </div>
-                <ul class="bullets">
-                    <li>Studied ~50 large datasets on fish belts and habitat complexities along the UAE and Oman coasts, collaborating with leading marine biologists.</li>
-                    <li>Utilized data cleaning techniques in R to ensure data accuracy, supporting research on marine ecosystems and climate impact.</li>
-                    <li>Integrated data into MERMAID/ReefCloud, improving data accessibility and usability for environmental research teams.</li>
-                </ul>
-            </div>
-            
-            <p class="subtitle" style="font-size: 0.9rem;"><strong>Additional Experience:</strong> Sustainable Finance Intern, Sharjah Oxygen Company LLC (June 2024 – July 2024)</p>
+                </a>
 
-        </section>
-
-        <section id="leadership">
-            <h2>Leadership Activities</h2>
-
-            <div class="resume-item">
-                <div class="resume-header">
-                    <div>
-                        <span class="role-title">NYU x UAE Delegate</span><br>
-                        <span class="company-name">COP30 Brazil</span>
+                <a href="#" class="card">
+                    <div class="card-date">Dec 2025 — Jan 2026</div>
+                    <div class="card-content">
+                        <h3>Youth Forum Delegate <span class="arrow">↗</span></h3>
+                        <div class="card-subtitle">International Renewable Energy Agency (IRENA)</div>
+                        <p class="card-body">
+                            Engaged in intergenerational policy discussions focusing on AI-driven digital solutions for expanding global renewable energy access.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Renewable Energy</span>
+                            <span class="tag">AI Policy</span>
+                        </div>
                     </div>
-                    <div class="date-location">Nov 2025 – Dec 2025</div>
-                </div>
-                <ul class="bullets">
-                    <li>Strengthened global sustainability networks by collaborating with youth delegates, researchers, and NGOs to advance equity-centered climate initiatives.</li>
-                    <li>Participated in high-level negotiations with heads of states, policymakers, and civil society leaders on climate resilience, mitigation, and adaptation.</li>
-                </ul>
-            </div>
+                </a>
+            </section>
 
-            <div class="resume-item">
-                <div class="resume-header">
-                    <div>
-                        <span class="role-title">IRENA Youth Forum Delegate</span><br>
-                        <span class="company-name">International Renewable Energy Agency</span>
+            <!-- EDUCATION & SKILLS SECTION -->
+            <section id="education">
+                <h2 class="section-title">Education & Skills</h2>
+
+                <div class="card">
+                    <div class="card-date">2022 — 2026</div>
+                    <div class="card-content">
+                        <h3>New York University Abu Dhabi</h3>
+                        <div class="card-subtitle">B.A. Economics (3.71) | Minor in Environmental Studies (4.0)</div>
+                        <p class="card-body">
+                            Global academic rotations at NYU Stern School of Business (New York) and NYU Paris. Focused heavily on environmental economic policy, ESG integration, and macroeconomics.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">C++</span>
+                            <span class="tag">STATA</span>
+                            <span class="tag">GAAP/IFRS</span>
+                            <span class="tag">GRI/SASB</span>
+                            <span class="tag">ESG Metrics</span>
+                        </div>
                     </div>
-                    <div class="date-location">Dec 2025 – Jan 2026</div>
                 </div>
-                <ul class="bullets">
-                    <li>Engaged in intergenerational policy discussions and youth-led workshops on AI-driven and digital solutions for expanding renewable energy access.</li>
-                </ul>
-            </div>
-            
-            <p class="subtitle" style="font-size: 0.9rem; margin-top: 1rem;"><strong>Other Roles:</strong> Senior Resident Assistant (NYUAD), Event Coordinator & Graphic Designer (Ecoherence), Youth Advocate (UNA-Pakistan), CEO & CHRO (Replenish NGO).</p>
-        </section>
+            </section>
+        </main>
+    </div>
 
-        <section id="skills">
-            <h2>Skills & Competencies</h2>
-            <div class="skills-container">
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">C++</span>
-                <span class="skill-tag">R & R-Studio</span>
-                <span class="skill-tag">STATA</span>
-                <span class="skill-tag">Financial Modelling</span>
-                <span class="skill-tag">GAAP/IFRS Accounting</span>
-                <span class="skill-tag">GRI/SASB Metrics</span>
-                <span class="skill-tag">ESG</span>
-            </div>
-        </section>
-    </main>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
 
-    <footer>
-        <p>© 2024 Sameer Kamran</p>
-    </footer>
-</div>
+        // Mouse tracking for spotlight effect
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            document.documentElement.style.setProperty('--x', `${x}px`);
+            document.documentElement.style.setProperty('--y', `${y}px`);
+        });
 
+        // Intersection Observer for scroll spy (updates active link in sidebar)
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-item a');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => observer.observe(section));
+    </script>
 </body>
 </html>
