@@ -11,13 +11,13 @@
     <style>
         :root {
             /* Subtle Nature / Climate Theme */
-            --bg: #0a1712; /* Deep moss/forest night */
-            --bg-card: rgba(16, 185, 129, 0.03);
-            --bg-card-hover: rgba(16, 185, 129, 0.08);
-            --text-main: #f0fdf4; /* Off-white with a hint of mint */
-            --text-muted: #94a3b8; /* Slate gray for readable contrast */
-            --accent: #10b981; /* Emerald / Leaf Green */
-            --accent-glow: rgba(16, 185, 129, 0.12);
+            --bg: #06110d; /* Even darker moss/forest night for depth */
+            --bg-card: rgba(16, 185, 129, 0.02);
+            --bg-card-hover: rgba(16, 185, 129, 0.06);
+            --text-main: #f0fdf4;
+            --text-muted: #94a3b8;
+            --accent: #10b981; 
+            --accent-glow: rgba(16, 185, 129, 0.15);
         }
 
         * {
@@ -34,6 +34,18 @@
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
             position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Subtle Noise Texture Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         /* Mouse tracking spotlight effect */
@@ -45,7 +57,8 @@
             height: 100vh;
             pointer-events: none;
             z-index: 30;
-            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), var(--accent-glow), transparent 80%);
+            background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), var(--accent-glow), transparent 80%);
+            transition: background 0.1s ease;
         }
 
         ::selection {
@@ -63,12 +76,30 @@
             color: var(--accent);
         }
 
+        /* Scroll Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 1.5rem;
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 40;
         }
 
         @media (min-width: 1024px) {
@@ -99,11 +130,14 @@
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 800;
-            letter-spacing: -0.025em;
+            letter-spacing: -0.03em;
             line-height: 1.1;
-            color: var(--text-main);
+            background: linear-gradient(to right, #f8fafc, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
         }
 
         h2.subtitle {
@@ -116,8 +150,9 @@
         p.bio {
             margin-top: 1.5rem;
             color: var(--text-muted);
-            max-width: 320px;
+            max-width: 340px;
             font-size: 1.05rem;
+            line-height: 1.7;
         }
 
         /* Navigation */
@@ -149,6 +184,8 @@
             letter-spacing: 0.1em;
             color: var(--text-muted);
             transition: all 0.3s ease;
+            position: relative;
+            padding-left: 0;
         }
 
         .nav-indicator {
@@ -156,11 +193,12 @@
             height: 1px;
             background-color: var(--text-muted);
             margin-right: 1rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .nav-item a:hover, .nav-item a.active {
             color: var(--text-main);
+            padding-left: 0.5rem;
         }
 
         .nav-item a:hover .nav-indicator, .nav-item a.active .nav-indicator {
@@ -178,10 +216,12 @@
             color: var(--text-muted);
             display: flex;
             align-items: center;
+            transition: all 0.3s ease;
         }
 
         .socials a:hover {
             color: var(--text-main);
+            transform: translateY(-3px);
         }
 
         /* RIGHT CONTENT */
@@ -198,7 +238,8 @@
         }
 
         section {
-            margin-bottom: 6rem;
+            margin-bottom: 7rem;
+            scroll-margin-top: 6rem;
         }
 
         .section-title {
@@ -209,6 +250,12 @@
             color: var(--text-main);
             margin-bottom: 2rem;
             display: block;
+            position: sticky;
+            top: 0;
+            background: rgba(6, 17, 13, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            z-index: 20;
         }
 
         @media (min-width: 1024px) {
@@ -224,9 +271,10 @@
             border-radius: 0.75rem;
             background: transparent;
             border: 1px solid transparent;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             z-index: 10;
+            margin-bottom: 1rem;
         }
 
         @media (min-width: 640px) {
@@ -240,8 +288,9 @@
 
         .card:hover {
             background: var(--bg-card);
-            border-color: rgba(16, 185, 129, 0.1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-color: rgba(16, 185, 129, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            transform: translateY(-4px);
         }
 
         .card-date {
@@ -251,6 +300,11 @@
             letter-spacing: 0.05em;
             color: var(--text-muted);
             margin-top: 0.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .card:hover .card-date {
+            color: rgba(240, 253, 244, 0.7);
         }
 
         .card-content h3 {
@@ -261,11 +315,13 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            transition: color 0.3s ease;
         }
         
         .card-content h3 .arrow {
-            transition: transform 0.2s;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             display: inline-block;
+            opacity: 0.7;
         }
         
         .card:hover .card-content h3 {
@@ -274,6 +330,7 @@
 
         .card:hover .card-content h3 .arrow {
             transform: translateX(4px) translateY(-4px);
+            opacity: 1;
         }
 
         .card-subtitle {
@@ -287,6 +344,7 @@
             font-size: 0.9rem;
             color: var(--text-muted);
             margin-bottom: 1rem;
+            line-height: 1.6;
         }
 
         /* Tags */
@@ -304,14 +362,20 @@
             color: var(--accent);
             font-size: 0.75rem;
             font-weight: 500;
-            padding: 0.25rem 0.75rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 9999px;
             letter-spacing: 0.025em;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .tag {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399; /* Slightly brighter green on hover */
         }
 
         /* Tech aesthetic elements */
         .code-snippet {
-            background: rgba(10, 23, 18, 0.6);
+            background: rgba(4, 9, 7, 0.8);
             border: 1px solid rgba(16, 185, 129, 0.15);
             border-radius: 0.5rem;
             padding: 1rem;
@@ -320,6 +384,11 @@
             color: #e2e8f0;
             margin-top: 1rem;
             margin-bottom: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .card:hover .code-snippet {
+            border-color: rgba(16, 185, 129, 0.3);
         }
         
         .code-keyword { color: #10b981; }
@@ -328,7 +397,9 @@
 
         /* Button */
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             padding: 0.75rem 1.5rem;
             background: rgba(16, 185, 129, 0.1);
             color: var(--accent);
@@ -336,24 +407,35 @@
             border-radius: 0.5rem;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: all 0.2s;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             margin-top: 1rem;
+            cursor: pointer;
         }
 
         .btn:hover {
             background: var(--accent);
             color: var(--bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover i {
+            transform: translateX(3px);
         }
 
     </style>
 </head>
-<body>
+<body class="antialiased selection:bg-teal-300 selection:text-teal-900">
 
     <div class="spotlight"></div>
 
     <div class="container">
         <!-- LEFT SIDEBAR -->
-        <header>
+        <header class="reveal">
             <div>
                 <h1>Sameer Kamran</h1>
                 <h2 class="subtitle">Economist & Environmental Policy Analyst</h2>
@@ -370,10 +452,10 @@
                             <a href="#experience"><span class="nav-indicator"></span> Experience</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#leadership"><span class="nav-indicator"></span> Leadership</a>
+                            <a href="#projects"><span class="nav-indicator"></span> Projects</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#contact"><span class="nav-indicator"></span> Contact</a>
+                            <a href="#leadership"><span class="nav-indicator"></span> Leadership</a>
                         </li>
                     </ul>
                 </nav>
@@ -391,12 +473,12 @@
 
             <!-- EDUCATION & SKILLS SECTION -->
             <section id="education">
-                <h2 class="section-title">Education & Skills</h2>
+                <h2 class="section-title reveal">Education & Skills</h2>
 
-                <a href="#" class="card">
+                <div class="card reveal delay-100">
                     <div class="card-date">2022 — 2026</div>
                     <div class="card-content">
-                        <h3>New York University Abu Dhabi <span class="arrow">↗</span></h3>
+                        <h3>New York University Abu Dhabi</h3>
                         <div class="card-subtitle">B.A. Economics (3.71) | Minor in Environmental Studies (4.0)</div>
                         <p class="card-body">
                             Global academic rotations at NYU Stern School of Business (New York) and NYU Paris. Focused heavily on environmental economic policy, ESG integration, and macroeconomics.
@@ -410,14 +492,14 @@
                             <span class="tag">ESG Metrics</span>
                         </div>
                     </div>
-                </a>
+                </div>
             </section>
 
             <!-- EXPERIENCE SECTION -->
             <section id="experience">
-                <h2 class="section-title">Experience</h2>
+                <h2 class="section-title reveal">Experience</h2>
 
-                <a href="#" class="card">
+                <a href="#" class="card reveal delay-100">
                     <div class="card-date">Jan 2025 — Present</div>
                     <div class="card-content">
                         <h3>Eco-Awareness Specialist <span class="arrow">↗</span></h3>
@@ -433,7 +515,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="card">
+                <a href="#" class="card reveal delay-200">
                     <div class="card-date">Jun 2025 — Aug 2025</div>
                     <div class="card-content">
                         <h3>Sustainable Finance Intern <span class="arrow">↗</span></h3>
@@ -449,7 +531,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="card">
+                <a href="#" class="card reveal delay-300">
                     <div class="card-date">Apr 2024 — Jun 2024</div>
                     <div class="card-content">
                         <h3>Research Assistant <span class="arrow">↗</span></h3>
@@ -475,7 +557,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="card">
+                <a href="#" class="card reveal">
                     <div class="card-date">Jun 2024 — Jul 2024</div>
                     <div class="card-content">
                         <h3>Sustainable Finance Intern <span class="arrow">↗</span></h3>
@@ -494,9 +576,9 @@
 
             <!-- PROJECTS SECTION -->
             <section id="projects">
-                <h2 class="section-title">Projects & Research</h2>
+                <h2 class="section-title reveal">Projects & Research</h2>
 
-                <a href="#" class="card">
+                <a href="#" class="card reveal delay-100">
                     <div class="card-date">2025 — Present</div>
                     <div class="card-content">
                         <h3>Circular Economy Viability Model & Readiness Index <span class="arrow">↗</span></h3>
@@ -515,9 +597,9 @@
 
             <!-- LEADERSHIP SECTION -->
             <section id="leadership">
-                <h2 class="section-title">Leadership & Global Policy</h2>
+                <h2 class="section-title reveal">Leadership & Global Policy</h2>
 
-                <a href="#" class="card">
+                <a href="#" class="card reveal delay-100">
                     <div class="card-date">Nov 2025 — Dec 2025</div>
                     <div class="card-content">
                         <h3>NYU x UAE Delegate <span class="arrow">↗</span></h3>
@@ -532,7 +614,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="card">
+                <a href="#" class="card reveal delay-200">
                     <div class="card-date">Dec 2025 — Jan 2026</div>
                     <div class="card-content">
                         <h3>Youth Forum Delegate <span class="arrow">↗</span></h3>
@@ -547,7 +629,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="card">
+                <a href="#" class="card reveal delay-300">
                     <div class="card-date">2024 — Present</div>
                     <div class="card-content">
                         <h3>Youth Advocate & Worker <span class="arrow">↗</span></h3>
@@ -562,7 +644,7 @@
                     </div>
                 </a>
 
-                <a href="#" class="card">
+                <a href="#" class="card reveal">
                     <div class="card-date">High School</div>
                     <div class="card-content">
                         <h3>Founder & CEO <span class="arrow">↗</span></h3>
@@ -579,17 +661,17 @@
             </section>
 
             <!-- CONTACT SECTION -->
-            <section id="contact">
-                <h2 class="section-title">Get In Touch</h2>
+            <section id="contact" style="margin-bottom: 0;">
+                <h2 class="section-title reveal">Get In Touch</h2>
                 
-                <div class="card full-width">
+                <div class="card full-width reveal delay-100" style="margin-bottom: 0; padding-bottom: 2rem;">
                     <div class="card-content">
-                        <h3>Let's Connect</h3>
-                        <p class="card-body" style="margin-bottom: 0;">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Let's Connect</h3>
+                        <p class="card-body" style="font-size: 1rem;">
                             I'm always open to discussing environmental policy, sustainable finance, and opportunities to drive global resilience. Whether you have a question or just want to say hi, feel free to reach out!
                         </p>
                         <a href="mailto:sk9412@nyu.edu" class="btn">
-                            Say Hello
+                            Say Hello <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </a>
                     </div>
                 </div>
@@ -610,17 +692,11 @@
             document.documentElement.style.setProperty('--y', `${y}px`);
         });
 
-        // Intersection Observer for scroll spy (updates active link in sidebar)
+        // Scroll Spy for Sidebar Navigation
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-item a');
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '-50% 0px -50% 0px', // Adjusted for better trigger point
-            threshold: 0
-        };
-
-        const observer = new IntersectionObserver((entries) => {
+        const scrollObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     navLinks.forEach(link => {
@@ -631,9 +707,29 @@
                     });
                 }
             });
-        }, observerOptions);
+        }, { rootMargin: '-40% 0px -60% 0px' });
 
-        sections.forEach(section => observer.observe(section));
+        sections.forEach(section => scrollObserver.observe(section));
+
+        // Reveal Animations on Scroll
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Optional: Stop observing once revealed
+                    // revealObserver.unobserve(entry.target); 
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+        
+        // Trigger reveal for elements already in viewport on load
+        setTimeout(() => {
+            document.querySelector('header.reveal').classList.add('active');
+        }, 100);
     </script>
 </body>
 </html>
