@@ -545,6 +545,13 @@
                 document.getElementById('heroName').style.textShadow = '0 0 30px #10b981';
                 document.getElementById('heroName').style.color = '#fff';
             }, 1200);
+
+            // Disappear after 5 seconds
+            setTimeout(() => {
+                cap.style.opacity = '0';
+                cap.style.transform += ' translateY(-20px)';
+                setTimeout(() => cap.remove(), 1000);
+            }, 5000);
         });
     </script>
 </body>
