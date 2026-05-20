@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sameer Kamran | Economics & Environmental Policy</title>
+    <style>
+        /* CSS Reset & Variables */
+        :root {
+            --bg-color: #F9F9F9; /* Very soft off-white/light grey */
+            --text-main: #1C1C1C; /* Charcoal black */
+            --text-muted: #5A5A5A; /* Medium grey */
+            --accent: #4A5D52; /* Very subtle muted sage/slate */
+            --border-color: #E0E0E0;
+            --font-serif: 'Playfair Display', 'Merriweather', serif;
+            --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: var(--font-serif);
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        a {
+            color: var(--text-main);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            transition: all 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent);
+            border-bottom: 1px solid transparent;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 4rem;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-links {
+            display: flex;
+            gap: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        .contact-links a {
+            border-bottom: none;
+            text-decoration: underline;
+            text-decoration-color: var(--border-color);
+        }
+
+        /* Sections */
+        .resume-item {
+            margin-bottom: 2.5rem;
+        }
+
+        .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-title {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .company-name {
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .date-location {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        ul.bullets {
+            list-style-type: none;
+            margin-left: 0;
+        }
+
+        ul.bullets li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        ul.bullets li::before {
+            content: "—";
+            position: absolute;
+            left: 0;
+            color: var(--border-color);
+        }
+
+        /* Skills */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.25rem 0.75rem;
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
+            color: var(--text-main);
+            border-radius: 2px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+            font-family: var(--font-mono);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .resume-header {
+                flex-direction: column;
+            }
+            .date-location {
+                text-align: left;
+                margin-top: 0.25rem;
+            }
+            .contact-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Sameer Kamran</h1>
+        <p class="subtitle">B.A. Economics, Environmental Studies Minor — New York University Abu Dhabi</p>
+        <div class="contact-links">
+            <a href="mailto:sk9412@nyu.edu">sk9412@nyu.edu</a>
+            <a href="https://www.linkedin.com/in/sameerkamran" target="_blank" rel="noopener noreferrer">linkedin.com/in/sameerkamran</a>
+            <span>Abu Dhabi, UAE</span>
+        </div>
+    </header>
+
+    <main>
+        <section id="education">
+            <h2>Education</h2>
+            
+            <div class="resume-item">
+                <div class="resume-header">
+                    <div>
+                        <span class="role-title">New York University Abu Dhabi</span>
+                    </div>
+                    <div class="date-location">Aug 2022 – May 2026<br>Abu Dhabi, UAE</div>
+                </div>
+                <p>Bachelor of Arts in Economics; Minor in Environmental Studies<br>
+                GPA: 3.71/4 (Minor GPA: 4.0)</p>
+                <p><strong>International Experience:</strong><br>
+                NYU College of Arts & Sciences / Stern School of Business (New York City, USA)<br>
+                NYU Paris (Paris, France)</p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Relevant Experience</h2>
+
+            <div class="resume-item">
+                <div class="resume-header">
+                    <div>
+                        <span class="role-title">Eco-Awareness Specialist and Intern</span><br>
+                        <span class="company-name">Polygreen Pollution Control Proprietorship LLC.</span>
+                    </div>
+                    <div class="date-location">Jan 2025 – July 2025<br>Abu Dhabi, UAE</div>
+                </div>
+                <ul class="bullets">
+                    <li>Spearhead awareness and educational workshops for 250+ residential units, promoting sustainability and circular economy solutions, directly engaging 2,000+ community members.</li>
+                    <li>Partnered with sustainability organizations and local stakeholders like Aldar and Tadweer to expand outreach efforts, aligning initiatives with the UAE’s NetZero by 2050 goals.</li>
+                    <li>Conduct pre- and post-event impact assessments to evaluate and minimize the environmental footprint of events, optimizing engagement strategies.</li>
+                </ul>
+            </div>
+
+            <div class="resume-item">
+                <div class="resume-header">
+                    <div>
+                        <span class="role-title">Sustainable Finance Intern</span><br>
+                        <span class="company-name">Pakistan International Airlines</span>
+                    </div>
+                    <div class="date-location">June 2025 – Aug 2025<br>Dubai, UAE</div>
+                </div>
+                <ul class="bullets">
+                    <li>Developed comprehensive financial reports utilizing advanced data visualization tools that became essential resources for 8 senior management meetings.</li>
+                    <li>Conducted market research and industry trend analysis, informing strategy for market expansion and acquisition of Sustainable Aviation Fuel (SAF).</li>
+                    <li>Implemented a strategic framework for ongoing internal audits, identifying 7 key areas for operational improvement and enhancing risk management.</li>
+                    <li>Recommended data-driven strategies for cost optimization, improving resource efficiency and profitability.</li>
+                </ul>
+            </div>
+
+            <div class="resume-item">
+                <div class="resume-header">
+                    <div>
+                        <span class="role-title">Research Assistant</span><br>
+                        <span class="company-name">Mubadala Arabian Center for Climate and Environmental Sciences</span>
+                    </div>
+                    <div class="date-location">April 2024 – June 2024<br>Abu Dhabi, UAE</div>
+                </div>
+                <ul class="bullets">
+                    <li>Studied ~50 large datasets on fish belts and habitat complexities along the UAE and Oman coasts, collaborating with leading marine biologists.</li>
+                    <li>Utilized data cleaning techniques in R to ensure data accuracy, supporting research on marine ecosystems and climate impact.</li>
+                    <li>Integrated data into MERMAID/ReefCloud, improving data accessibility and usability for environmental research teams.</li>
+                </ul>
+            </div>
+            
+            <p class="subtitle" style="font-size: 0.9rem;"><strong>Additional Experience:</strong> Sustainable Finance Intern, Sharjah Oxygen Company LLC (June 2024 – July 2024)</p>
+
+        </section>
+
+        <section id="leadership">
+            <h2>Leadership Activities</h2>
+
+            <div class="resume-item">
+                <div class="resume-header">
+                    <div>
+                        <span class="role-title">NYU x UAE Delegate</span><br>
+                        <span class="company-name">COP30 Brazil</span>
+                    </div>
+                    <div class="date-location">Nov 2025 – Dec 2025</div>
+                </div>
+                <ul class="bullets">
+                    <li>Strengthened global sustainability networks by collaborating with youth delegates, researchers, and NGOs to advance equity-centered climate initiatives.</li>
+                    <li>Participated in high-level negotiations with heads of states, policymakers, and civil society leaders on climate resilience, mitigation, and adaptation.</li>
+                </ul>
+            </div>
+
+            <div class="resume-item">
+                <div class="resume-header">
+                    <div>
+                        <span class="role-title">IRENA Youth Forum Delegate</span><br>
+                        <span class="company-name">International Renewable Energy Agency</span>
+                    </div>
+                    <div class="date-location">Dec 2025 – Jan 2026</div>
+                </div>
+                <ul class="bullets">
+                    <li>Engaged in intergenerational policy discussions and youth-led workshops on AI-driven and digital solutions for expanding renewable energy access.</li>
+                </ul>
+            </div>
+            
+            <p class="subtitle" style="font-size: 0.9rem; margin-top: 1rem;"><strong>Other Roles:</strong> Senior Resident Assistant (NYUAD), Event Coordinator & Graphic Designer (Ecoherence), Youth Advocate (UNA-Pakistan), CEO & CHRO (Replenish NGO).</p>
+        </section>
+
+        <section id="skills">
+            <h2>Skills & Competencies</h2>
+            <div class="skills-container">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">C++</span>
+                <span class="skill-tag">R & R-Studio</span>
+                <span class="skill-tag">STATA</span>
+                <span class="skill-tag">Financial Modelling</span>
+                <span class="skill-tag">GAAP/IFRS Accounting</span>
+                <span class="skill-tag">GRI/SASB Metrics</span>
+                <span class="skill-tag">ESG</span>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Sameer Kamran</p>
+    </footer>
+</div>
+
+</body>
+</html>
