@@ -10,14 +10,13 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            /* Subtle Nature / Climate Theme */
-            --bg: #06110d; /* Even darker moss/forest night for depth */
-            --bg-card: rgba(16, 185, 129, 0.02);
-            --bg-card-hover: rgba(16, 185, 129, 0.06);
+            --bg: #06110d;
+            --bg-card: rgba(16, 185, 129, 0.03);
+            --bg-card-hover: rgba(16, 185, 129, 0.08);
             --text-main: #f0fdf4;
             --text-muted: #94a3b8;
             --accent: #10b981; 
-            --accent-glow: rgba(16, 185, 129, 0.15);
+            --accent-glow: rgba(16, 185, 129, 0.12);
         }
 
         * {
@@ -37,7 +36,7 @@
             overflow-x: hidden;
         }
 
-        /* Subtle Noise Texture Overlay */
+        /* Noise Texture */
         body::before {
             content: "";
             position: fixed;
@@ -48,7 +47,6 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Mouse tracking spotlight effect */
         .spotlight {
             position: fixed;
             top: 0;
@@ -58,29 +56,197 @@
             pointer-events: none;
             z-index: 30;
             background: radial-gradient(800px circle at var(--x, 50%) var(--y, 50%), var(--accent-glow), transparent 80%);
-            transition: background 0.1s ease;
         }
 
-        ::selection {
-            background-color: var(--accent);
-            color: var(--bg);
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 40;
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.2s ease;
+        /* HERO SECTION */
+        header {
+            padding: 8rem 0 4rem 0;
+            text-align: center;
         }
 
-        a:hover {
+        h1 {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            background: linear-gradient(to right, #f8fafc, #10b981, #f8fafc);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        h2.subtitle {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
+        p.bio {
+            margin: 2rem auto 0 auto;
+            color: var(--text-muted);
+            max-width: 600px;
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .socials a {
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .socials a:hover {
             color: var(--accent);
+            transform: translateY(-5px);
         }
 
-        /* Scroll Animation Classes */
+        /* SECTION STYLING */
+        section {
+            margin-bottom: 8rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        .section-header .line {
+            height: 1px;
+            background: linear-gradient(to right, var(--accent), transparent);
+            width: 100%;
+            opacity: 0.3;
+        }
+
+        /* CARD STYLING - FULL WIDTH */
+        .card {
+            display: block;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(16, 185, 129, 0.05);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 2rem;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(16, 185, 129, 0.3);
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-date {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 600;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-content h3 .arrow {
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover h3 .arrow {
+            transform: translate(5px, -5px);
+        }
+
+        .card-subtitle {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-body {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            transition: all 0.3s;
+        }
+
+        .card:hover .tag {
+            border-color: var(--accent);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        /* Reveal Animations */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
         .reveal.active {
@@ -88,648 +254,250 @@
             transform: translateY(0);
         }
 
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 40;
-        }
-
-        @media (min-width: 1024px) {
-            .container {
-                flex-direction: row;
-                justify-content: space-between;
-            }
-        }
-
-        /* LEFT SIDEBAR */
-        header {
-            padding-top: 5rem;
-            padding-bottom: 3rem;
-        }
-
-        @media (min-width: 1024px) {
-            header {
-                position: sticky;
-                top: 0;
-                height: 100vh;
-                width: 48%;
-                padding-top: 6rem;
-                padding-bottom: 6rem;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            background: linear-gradient(to right, #f8fafc, #10b981);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-
-        h2.subtitle {
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--text-main);
-            margin-top: 0.5rem;
-        }
-
-        p.bio {
-            margin-top: 1.5rem;
-            color: var(--text-muted);
-            max-width: 340px;
-            font-size: 1.05rem;
-            line-height: 1.7;
-        }
-
-        /* Navigation */
-        nav {
-            margin-top: 4rem;
-            display: none;
-        }
-
-        @media (min-width: 1024px) {
-            nav { display: block; }
-        }
-
-        .nav-list {
-            list-style: none;
-        }
-
-        .nav-item {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-item a {
-            display: flex;
-            align-items: center;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-muted);
-            transition: all 0.3s ease;
-            position: relative;
-            padding-left: 0;
-        }
-
-        .nav-indicator {
-            width: 2rem;
-            height: 1px;
-            background-color: var(--text-muted);
-            margin-right: 1rem;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .nav-item a:hover, .nav-item a.active {
-            color: var(--text-main);
-            padding-left: 0.5rem;
-        }
-
-        .nav-item a:hover .nav-indicator, .nav-item a.active .nav-indicator {
-            width: 4rem;
-            background-color: var(--text-main);
-        }
-
-        .socials {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .socials a {
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .socials a:hover {
-            color: var(--text-main);
-            transform: translateY(-3px);
-        }
-
-        /* RIGHT CONTENT */
-        main {
-            padding-top: 3rem;
-            padding-bottom: 6rem;
-        }
-
-        @media (min-width: 1024px) {
-            main {
-                width: 50%;
-                padding-top: 6rem;
-            }
-        }
-
-        section {
-            margin-bottom: 7rem;
-            scroll-margin-top: 6rem;
-        }
-
-        .section-title {
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-main);
-            margin-bottom: 2rem;
-            display: block;
-            position: sticky;
-            top: 0;
-            background: rgba(6, 17, 13, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 1rem 0;
-            z-index: 20;
-        }
-
-        @media (min-width: 1024px) {
-            .section-title { display: none; }
-        }
-
-        /* Card Layout */
-        .card {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            background: transparent;
-            border: 1px solid transparent;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            z-index: 10;
-            margin-bottom: 1rem;
-        }
-
-        @media (min-width: 640px) {
-            .card {
-                grid-template-columns: 1fr 3fr;
-            }
-            .card.full-width {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card:hover {
-            background: var(--bg-card);
-            border-color: rgba(16, 185, 129, 0.2);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            transform: translateY(-4px);
-        }
-
-        .card-date {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-            transition: color 0.3s ease;
-        }
-
-        .card:hover .card-date {
-            color: rgba(240, 253, 244, 0.7);
-        }
-
-        .card-content h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 0.25rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: color 0.3s ease;
-        }
-        
-        .card-content h3 .arrow {
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            display: inline-block;
-            opacity: 0.7;
-        }
-        
-        .card:hover .card-content h3 {
-            color: var(--accent);
-        }
-
-        .card:hover .card-content h3 .arrow {
-            transform: translateX(4px) translateY(-4px);
-            opacity: 1;
-        }
-
-        .card-subtitle {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        .card-body {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        /* Tags */
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--accent);
-            font-size: 0.75rem;
-            font-weight: 500;
-            padding: 0.3rem 0.8rem;
-            border-radius: 9999px;
-            letter-spacing: 0.025em;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover .tag {
-            background: rgba(16, 185, 129, 0.2);
-            color: #34d399; /* Slightly brighter green on hover */
-        }
-
-        /* Tech aesthetic elements */
-        .code-snippet {
-            background: rgba(4, 9, 7, 0.8);
-            border: 1px solid rgba(16, 185, 129, 0.15);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            font-family: monospace;
-            font-size: 0.8rem;
-            color: #e2e8f0;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .card:hover .code-snippet {
-            border-color: rgba(16, 185, 129, 0.3);
-        }
-        
-        .code-keyword { color: #10b981; }
-        .code-string { color: #fcd34d; }
-        .code-comment { color: #64748b; font-style: italic; }
-
         /* Button */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            border-radius: 0.5rem;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            margin-top: 1rem;
-            cursor: pointer;
+        .contact-cta {
+            text-align: center;
+            padding: 6rem 0;
         }
 
-        .btn:hover {
+        .btn-large {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 3rem;
             background: var(--accent);
             color: var(--bg);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            font-weight: 800;
+            font-size: 1.1rem;
+            border-radius: 9999px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
         }
 
-        .btn i {
-            transition: transform 0.3s ease;
+        .btn-large:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 20px 50px rgba(16, 185, 129, 0.4);
         }
 
-        .btn:hover i {
-            transform: translateX(3px);
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
     </style>
 </head>
-<body class="antialiased selection:bg-teal-300 selection:text-teal-900">
+<body>
 
     <div class="spotlight"></div>
 
     <div class="container">
-        <!-- LEFT SIDEBAR -->
+        <!-- HEADER -->
         <header class="reveal">
-            <div>
-                <h1>Sameer Kamran</h1>
-                <h2 class="subtitle">Economist & Environmental Policy Analyst</h2>
-                <p class="bio">
-                    Building the bridge between macroeconomic policy and sustainable ecosystems. Specializing in ESG frameworks, circular economies, and Global South climate resilience.
-                </p>
-
-                <nav>
-                    <ul class="nav-list">
-                        <li class="nav-item">
-                            <a href="#education" class="active"><span class="nav-indicator"></span> Education</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#experience"><span class="nav-indicator"></span> Experience</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#projects"><span class="nav-indicator"></span> Projects</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#leadership"><span class="nav-indicator"></span> Leadership</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-
+            <h1>Sameer Kamran</h1>
+            <h2 class="subtitle">Economics & Environmental Policy Analyst</h2>
+            <p class="bio">
+                Bridging macroeconomic policy and environmental resilience. Specializing in circular economies, ESG finance, and sustainable governance in Global South contexts.
+            </p>
             <div class="socials">
-                <a href="https://github.com/" target="_blank" aria-label="GitHub"><i data-lucide="github" class="w-6 h-6"></i></a>
-                <a href="https://www.linkedin.com/in/sameerkamran" target="_blank" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
-                <a href="mailto:sk9412@nyu.edu" aria-label="Email"><i data-lucide="mail" class="w-6 h-6"></i></a>
+                <a href="https://www.linkedin.com/in/sameerkamran" target="_blank"><i data-lucide="linkedin" class="w-8 h-8"></i></a>
+                <a href="mailto:sk9412@nyu.edu"><i data-lucide="mail" class="w-8 h-8"></i></a>
+                <a href="#"><i data-lucide="file-text" class="w-8 h-8"></i></a>
             </div>
         </header>
 
-        <!-- RIGHT SCROLLING CONTENT -->
         <main>
-
-            <!-- EDUCATION & SKILLS SECTION -->
+            <!-- EDUCATION -->
             <section id="education">
-                <h2 class="section-title reveal">Education & Skills</h2>
+                <div class="section-header reveal">
+                    <h2>Education</h2>
+                    <div class="line"></div>
+                </div>
 
-                <div class="card reveal delay-100">
-                    <div class="card-date">2022 — 2026</div>
+                <div class="card reveal">
+                    <div class="card-top">
+                        <div class="card-date">2022 — 2026</div>
+                    </div>
                     <div class="card-content">
                         <h3>New York University Abu Dhabi</h3>
-                        <div class="card-subtitle">B.A. Economics (3.71) | Minor in Environmental Studies (4.0)</div>
+                        <div class="card-subtitle">B.A. Economics (GPA 3.71) | Minor in Environmental Studies (GPA 4.0)</div>
                         <p class="card-body">
-                            Global academic rotations at NYU Stern School of Business (New York) and NYU Paris. Focused heavily on environmental economic policy, ESG integration, and macroeconomics.
+                            Global scholar with rotations at NYU Stern (New York) and NYU Paris. Intensive focus on environmental economic policy, green macroeconomics, and cross-border sustainability transactions.
                         </p>
                         <div class="tags">
-                            <span class="tag">Python</span>
-                            <span class="tag">C++</span>
-                            <span class="tag">STATA</span>
-                            <span class="tag">GAAP/IFRS</span>
-                            <span class="tag">GRI/SASB</span>
+                            <span class="tag">Sustainable Finance</span>
+                            <span class="tag">Macroeconomics</span>
+                            <span class="tag">Policy Analysis</span>
                             <span class="tag">ESG Metrics</span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- EXPERIENCE SECTION -->
+            <!-- RELEVANT EXPERIENCE -->
             <section id="experience">
-                <h2 class="section-title reveal">Experience</h2>
+                <div class="section-header reveal">
+                    <h2>Relevant Experience</h2>
+                    <div class="line"></div>
+                </div>
 
-                <a href="#" class="card reveal delay-100">
-                    <div class="card-date">Jan 2025 — Present</div>
+                <a href="#" class="card reveal">
+                    <div class="card-top">
+                        <div class="card-date">Jan 2025 — Present</div>
+                    </div>
                     <div class="card-content">
-                        <h3>Eco-Awareness Specialist <span class="arrow">↗</span></h3>
-                        <div class="card-subtitle">Polygreen Pollution Control LLC</div>
+                        <h3>Eco-Awareness Specialist <i data-lucide="arrow-up-right" class="arrow w-6 h-6"></i></h3>
+                        <div class="card-subtitle">Polygreen Pollution Control LLC | Abu Dhabi, UAE</div>
                         <p class="card-body">
-                            Spearheaded educational workshops for 250+ residential units, engaging 2,000+ members to drive circular economy solutions. Partnered with Aldar and Tadweer to align operations with the UAE's NetZero 2050 framework.
+                            Spearheading waste-management initiatives for 250+ residential units, translating the UAE’s circular-economy roadmap into operational practice. Engaging 2,000+ community members to drive systemic behavior change.
                         </p>
                         <div class="tags">
                             <span class="tag">Circular Economy</span>
-                            <span class="tag">Impact Assessment</span>
-                            <span class="tag">NetZero 2050</span>
+                            <span class="tag">Operational Strategy</span>
+                            <span class="tag">Sustainability Advocacy</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="#" class="card reveal delay-200">
-                    <div class="card-date">Jun 2025 — Aug 2025</div>
+                <a href="#" class="card reveal">
+                    <div class="card-top">
+                        <div class="card-date">Jun 2025 — Aug 2025</div>
+                    </div>
                     <div class="card-content">
-                        <h3>Sustainable Finance Intern <span class="arrow">↗</span></h3>
-                        <div class="card-subtitle">Pakistan International Airlines</div>
+                        <h3>Sustainable Finance Intern <i data-lucide="arrow-up-right" class="arrow w-6 h-6"></i></h3>
+                        <div class="card-subtitle">Pakistan International Airlines | Dubai, UAE</div>
                         <p class="card-body">
-                            Developed data-driven financial reports for senior management guiding resource allocation. Conducted market research for the acquisition of Sustainable Aviation Fuel (SAF) and identified 7 operational improvement areas via internal audits.
+                            Directed resource allocation strategies for senior management through data-driven financial modeling. Built the strategic framework for SAF (Sustainable Aviation Fuel) acquisition and net-zero compliance auditing.
                         </p>
                         <div class="tags">
                             <span class="tag">Financial Modeling</span>
-                            <span class="tag">Data Visualization</span>
-                            <span class="tag">SAF Strategy</span>
+                            <span class="tag">Aviation Policy</span>
+                            <span class="tag">Risk Management</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="#" class="card reveal delay-300">
-                    <div class="card-date">Apr 2024 — Jun 2024</div>
+                <a href="#" class="card reveal">
+                    <div class="card-top">
+                        <div class="card-date">Apr 2024 — Jun 2024</div>
+                    </div>
                     <div class="card-content">
-                        <h3>Research Assistant <span class="arrow">↗</span></h3>
+                        <h3>Research Assistant <i data-lucide="arrow-up-right" class="arrow w-6 h-6"></i></h3>
                         <div class="card-subtitle">Mubadala Arabian Center for Climate Sciences</div>
                         <p class="card-body">
-                            Analyzed ~50 large datasets on fish belts and habitat complexities along the UAE/Oman coasts. Integrated cleaning pipelines in R into MERMAID/ReefCloud to support ecosystem-based conservation strategies.
+                            Leveraged R and advanced data cleaning to analyze critical marine ecological datasets. Supported ecosystem-based management and governmental conservation efforts across the UAE and Oman coasts.
                         </p>
-                        
-                        <!-- Tech touch: Code Snippet -->
-                        <div class="code-snippet">
-                            <span class="code-comment"># R Data Pipeline Snippet</span><br>
-                            <span class="code-keyword">library</span>(tidyverse)<br>
-                            clean_data <span class="code-keyword"><-</span> raw_reef_data <span class="code-keyword">%>%</span><br>
-                            &nbsp;&nbsp;filter(habitat_complexity > <span class="code-string">0.8</span>) <span class="code-keyword">%>%</span><br>
-                            &nbsp;&nbsp;mutate(sustainability_index = <span class="code-keyword">calculate_idx</span>())
-                        </div>
-
                         <div class="tags">
-                            <span class="tag">R Studio</span>
-                            <span class="tag">Data Cleaning</span>
+                            <span class="tag">Data Science</span>
                             <span class="tag">Marine Ecology</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="card reveal">
-                    <div class="card-date">Jun 2024 — Jul 2024</div>
-                    <div class="card-content">
-                        <h3>Sustainable Finance Intern <span class="arrow">↗</span></h3>
-                        <div class="card-subtitle">Sharjah Oxygen Company LLC</div>
-                        <p class="card-body">
-                            Analyzed how financial instruments and governance structures shape environmental transitions by aligning policy incentives with market behavior in carbon-intensive sectors.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">Sustainable Finance</span>
-                            <span class="tag">ESG</span>
-                            <span class="tag">Corporate Governance</span>
+                            <span class="tag">R Programming</span>
                         </div>
                     </div>
                 </a>
             </section>
 
-            <!-- PROJECTS SECTION -->
+            <!-- PROJECTS -->
             <section id="projects">
-                <h2 class="section-title reveal">Projects & Research</h2>
+                <div class="section-header reveal">
+                    <h2>Selected Projects</h2>
+                    <div class="line"></div>
+                </div>
 
-                <a href="#" class="card reveal delay-100">
-                    <div class="card-date">2025 — Present</div>
+                <div class="card reveal">
+                    <div class="card-top">
+                        <div class="card-date">Capstone Project</div>
+                    </div>
                     <div class="card-content">
-                        <h3>Circular Economy Viability Model & Readiness Index <span class="arrow">↗</span></h3>
-                        <div class="card-subtitle">Senior Capstone Project</div>
+                        <h3>Circular Economy Readiness Index & Viability Model</h3>
                         <p class="card-body">
-                            Developing a theoretical economic model examining the profitability of circular practices under specific policy constraints to guide firm-level resource allocation. Concurrently building a readiness index to comparatively score UAE firms on their preparedness for sustainable transitions.
+                            Developing a theoretical economic model to determine when circularity shifts from viable to profitable within firm-level resource allocation. Scoring UAE firms on preparedness for the circular transition using a custom-built index.
                         </p>
                         <div class="tags">
-                            <span class="tag">Economic Modeling</span>
-                            <span class="tag">Policy Analysis</span>
-                            <span class="tag">Index Creation</span>
+                            <span class="tag">Economic Theory</span>
+                            <span class="tag">Firms & Resource Allocation</span>
+                            <span class="tag">Quantitative Index</span>
                         </div>
-                    </div>
-                </a>
-            </section>
-
-            <!-- LEADERSHIP SECTION -->
-            <section id="leadership">
-                <h2 class="section-title reveal">Leadership & Global Policy</h2>
-
-                <a href="#" class="card reveal delay-100">
-                    <div class="card-date">Nov 2025 — Dec 2025</div>
-                    <div class="card-content">
-                        <h3>NYU x UAE Delegate <span class="arrow">↗</span></h3>
-                        <div class="card-subtitle">COP30 Brazil</div>
-                        <p class="card-body">
-                            Participated in high-level negotiations with heads of state and civil society leaders on climate resilience. Strengthened global networks to advance equity-centered initiatives from a Global South perspective.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">Climate Policy</span>
-                            <span class="tag">Diplomacy</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="card reveal delay-200">
-                    <div class="card-date">Dec 2025 — Jan 2026</div>
-                    <div class="card-content">
-                        <h3>Youth Forum Delegate <span class="arrow">↗</span></h3>
-                        <div class="card-subtitle">International Renewable Energy Agency (IRENA)</div>
-                        <p class="card-body">
-                            Engaged in intergenerational policy discussions focusing on AI-driven digital solutions for expanding global renewable energy access.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">Renewable Energy</span>
-                            <span class="tag">AI Policy</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="card reveal delay-300">
-                    <div class="card-date">2024 — Present</div>
-                    <div class="card-content">
-                        <h3>Youth Advocate & Worker <span class="arrow">↗</span></h3>
-                        <div class="card-subtitle">United Nations Association of Pakistan</div>
-                        <p class="card-body">
-                            Championed environmental justice and social struggle, echoing sustainability beliefs across national platforms and mobilizing like-minded youth.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">Advocacy</span>
-                            <span class="tag">Environmental Justice</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="#" class="card reveal">
-                    <div class="card-date">High School</div>
-                    <div class="card-content">
-                        <h3>Founder & CEO <span class="arrow">↗</span></h3>
-                        <div class="card-subtitle">Replenish (NGO)</div>
-                        <p class="card-body">
-                            Led a student-run nonprofit organization raising awareness and spearheading water conservation initiatives in Karachi in response to severe local water crises.
-                        </p>
-                        <div class="tags">
-                            <span class="tag">Non-profit Leadership</span>
-                            <span class="tag">Water Conservation</span>
-                        </div>
-                    </div>
-                </a>
-            </section>
-
-            <!-- CONTACT SECTION -->
-            <section id="contact" style="margin-bottom: 0;">
-                <h2 class="section-title reveal">Get In Touch</h2>
-                
-                <div class="card full-width reveal delay-100" style="margin-bottom: 0; padding-bottom: 2rem;">
-                    <div class="card-content">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Let's Connect</h3>
-                        <p class="card-body" style="font-size: 1rem;">
-                            I'm always open to discussing environmental policy, sustainable finance, and opportunities to drive global resilience. Whether you have a question or just want to say hi, feel free to reach out!
-                        </p>
-                        <a href="mailto:sk9412@nyu.edu" class="btn">
-                            Say Hello <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </a>
                     </div>
                 </div>
             </section>
 
+            <!-- LEADERSHIP -->
+            <section id="leadership">
+                <div class="section-header reveal">
+                    <h2>Global Leadership</h2>
+                    <div class="line"></div>
+                </div>
+
+                <a href="#" class="card reveal">
+                    <div class="card-top">
+                        <div class="card-date">COP30 Brazil</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>UAE Party Delegate <i data-lucide="arrow-up-right" class="arrow w-6 h-6"></i></h3>
+                        <p class="card-body">
+                            Represented youth perspectives in high-level negotiations with heads of state and policymakers. Amplified Global South climate resilience and adaptation strategies on the world stage.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Climate Diplomacy</span>
+                            <span class="tag">Global South Policy</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="card reveal">
+                    <div class="card-top">
+                        <div class="card-date">IRENA Youth Forum</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Youth Forum Delegate <i data-lucide="arrow-up-right" class="arrow w-6 h-6"></i></h3>
+                        <p class="card-body">
+                            Collaborated with global energy leaders on AI-driven digital solutions to expand renewable energy access. Selected as one of 150 delegates from a pool of 50,000 global applicants.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Renewable Energy</span>
+                            <span class="tag">AI in Sustainability</span>
+                        </div>
+                    </div>
+                </a>
+            </section>
+
+            <!-- CONTACT -->
+            <section id="contact" class="contact-cta reveal">
+                <h2>Ready to drive transition?</h2>
+                <div style="margin-top: 2rem;">
+                    <a href="mailto:sk9412@nyu.edu" class="btn-large">
+                        Get In Touch <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                    </a>
+                </div>
+            </section>
         </main>
+
+        <footer>
+            <p>© 2026 Sameer Kamran. Designed for resilience.</p>
+        </footer>
     </div>
 
     <script>
-        // Initialize Lucide icons
         lucide.createIcons();
 
-        // Mouse tracking for spotlight effect
+        // Mouse Spotlight
         document.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
-            document.documentElement.style.setProperty('--x', `${x}px`);
-            document.documentElement.style.setProperty('--y', `${y}px`);
+            document.documentElement.style.setProperty('--x', `${e.clientX}px`);
+            document.documentElement.style.setProperty('--y', `${e.clientY}px`);
         });
 
-        // Scroll Spy for Sidebar Navigation
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-item a');
-
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    navLinks.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.getAttribute('href').substring(1) === entry.target.id) {
-                            link.classList.add('active');
-                        }
-                    });
-                }
-            });
-        }, { rootMargin: '-40% 0px -60% 0px' });
-
-        sections.forEach(section => scrollObserver.observe(section));
-
-        // Reveal Animations on Scroll
-        const revealElements = document.querySelectorAll('.reveal');
-        
+        // Reveal Observer
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    // Optional: Stop observing once revealed
-                    // revealObserver.unobserve(entry.target); 
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        }, { threshold: 0.1 });
 
-        revealElements.forEach(el => revealObserver.observe(el));
-        
-        // Trigger reveal for elements already in viewport on load
-        setTimeout(() => {
-            document.querySelector('header.reveal').classList.add('active');
-        }, 100);
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     </script>
 </body>
 </html>
