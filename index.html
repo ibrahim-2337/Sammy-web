@@ -10,14 +10,14 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --bg: #0f1d19; /* Soft dark forest green */
-            --bg-card: rgba(16, 185, 129, 0.02);
-            --bg-card-hover: rgba(16, 185, 129, 0.05);
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
+            --bg: #0b1612; /* Refined dark forest */
+            --bg-card: rgba(255, 255, 255, 0.015);
+            --bg-card-hover: rgba(255, 255, 255, 0.04);
+            --text-main: #f0fdf4;
+            --text-muted: #8899a6;
             --accent: #10b981; 
-            --accent-glow: rgba(16, 185, 129, 0.08); /* Toned down spotlight */
-            --nav-bg: rgba(15, 29, 25, 0.8);
+            --accent-glow: rgba(16, 185, 129, 0.08);
+            --border: rgba(255, 255, 255, 0.06);
         }
 
         * {
@@ -33,285 +33,259 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
-            position: relative;
             overflow-x: hidden;
         }
 
-        /* Subtle Noise */
+        /* Ambient Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), var(--accent-glow), transparent 60%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             pointer-events: none;
             z-index: 100;
-            opacity: 0.02;
+            opacity: 0.03;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        .spotlight {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 1;
-            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), var(--accent-glow), transparent 80%);
-        }
-
         .container {
-            max-width: 1100px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 2.5rem;
+            display: flex;
+            flex-direction: column;
             position: relative;
             z-index: 10;
         }
 
-        /* TOP NAVIGATION */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            z-index: 1000;
-            background: var(--nav-bg);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        @media (min-width: 1024px) {
+            .container {
+                flex-direction: row;
+                gap: 4rem;
+            }
         }
 
-        .nav-container {
-            max-width: 1100px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-weight: 800;
-            font-size: 1.25rem;
-            letter-spacing: 0.2em;
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: none;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        @media (min-width: 768px) {
-            .nav-links { display: flex; }
-        }
-
-        .nav-links a {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-main);
-        }
-
-        .nav-cta {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--accent);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-cta:hover {
-            background: rgba(16, 185, 129, 0.1);
-            border-color: var(--accent);
-        }
-
-        /* HERO SECTION */
+        /* LEFT SIDEBAR */
         header {
-            padding: 12rem 0 8rem 0;
-            max-width: 800px;
+            padding-top: 6rem;
+            padding-bottom: 2rem;
         }
 
-        h1.hero-name {
-            font-size: clamp(4rem, 10vw, 7rem);
+        @media (min-width: 1024px) {
+            header {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                width: 40%;
+                padding-top: 8rem;
+                padding-bottom: 8rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+        }
+
+        h1 {
+            font-size: 4rem;
             font-weight: 800;
-            letter-spacing: -0.02em;
-            line-height: 1;
-            color: var(--text-main);
-            margin-bottom: 1.5rem;
+            letter-spacing: -0.04em;
+            line-height: 0.9;
+            margin-bottom: 1rem;
         }
 
-        .hero-subtitle {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-weight: 500;
-            color: var(--accent);
+        .subtitle {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-main);
             margin-bottom: 2rem;
         }
 
-        .hero-subtitle .dash {
-            width: 30px;
-            height: 1px;
-            background: var(--accent);
-        }
-
-        .hero-bio {
-            font-size: 1.25rem;
+        .bio {
             color: var(--text-muted);
-            max-width: 550px;
-            margin-bottom: 3rem;
-            line-height: 1.6;
+            max-width: 360px;
+            font-size: 1.05rem;
+            line-height: 1.7;
         }
 
-        .hero-btns {
-            display: flex;
-            gap: 1.5rem;
+        /* NAVIGATION */
+        nav {
+            margin-top: 5rem;
+            display: none;
         }
 
-        .btn-primary {
-            background: var(--accent);
-            color: var(--bg);
-            padding: 0.8rem 2rem;
-            border-radius: 9999px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s ease;
+        @media (min-width: 1024px) {
+            nav { display: block; }
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+        .nav-list {
+            list-style: none;
         }
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-main);
-            padding: 0.8rem 2rem;
-            border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s ease;
+        .nav-item {
+            margin-bottom: 1.25rem;
         }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .hero-location {
-            margin-top: 4rem;
+        .nav-item a {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .dot {
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent);
-        }
-
-        /* SECTIONS */
-        section {
-            margin-bottom: 10rem;
-            scroll-margin-top: 100px;
-        }
-
-        .section-header {
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: var(--accent);
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .nav-indicator {
+            width: 2rem;
+            height: 1px;
+            background-color: var(--text-muted);
+            margin-right: 1rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-item a:hover, .nav-item a.active {
+            color: var(--text-main);
+        }
+
+        .nav-item a:hover .nav-indicator, .nav-item a.active .nav-indicator {
+            width: 4rem;
+            background-color: var(--text-main);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* RIGHT CONTENT */
+        main {
+            padding-top: 4rem;
+            padding-bottom: 8rem;
+        }
+
+        @media (min-width: 1024px) {
+            main {
+                width: 60%;
+                padding-top: 8rem;
+            }
+        }
+
+        section {
+            margin-bottom: 8rem;
+            scroll-margin-top: 8rem;
         }
 
         /* CARDS */
         .card {
-            margin-bottom: 3rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
             padding: 2.5rem;
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
+            border-radius: 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        @media (min-width: 640px) {
+            .card {
+                grid-template-columns: 100px 1fr;
+            }
         }
 
         .card:hover {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg-card-hover);
             border-color: rgba(16, 185, 129, 0.2);
-            transform: translateY(-5px);
-        }
-
-        .card-top {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
         }
 
         .card-date {
-            font-family: monospace;
-            font-size: 0.8rem;
-            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.5rem;
         }
 
-        .card-title {
-            font-size: 1.5rem;
+        .card-content h3 {
+            font-size: 1.25rem;
             font-weight: 700;
+            color: var(--accent);
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-content h3 .arrow {
+            opacity: 0;
+            transform: translate(-10px, 10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover h3 .arrow {
+            opacity: 1;
+            transform: translate(0, 0);
         }
 
         .card-subtitle {
             font-size: 1rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-bottom: 1rem;
         }
 
         .card-body {
+            font-size: 0.95rem;
             color: var(--text-muted);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             line-height: 1.8;
         }
 
+        /* TAGS */
         .tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
 
         .tag {
-            font-size: 0.75rem;
-            font-weight: 600;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent);
+            font-size: 0.7rem;
+            font-weight: 700;
             padding: 0.4rem 1rem;
             border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
-        /* REVEAL */
+        /* ANIMATIONS */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -321,189 +295,172 @@
         }
 
         footer {
-            padding: 6rem 0;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 4rem 0;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
     </style>
 </head>
 <body>
 
-    <div class="spotlight"></div>
-
-    <nav>
-        <div class="nav-container">
-            <div class="logo">S K</div>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#leadership">Leadership</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#projects">Projects</a></li>
-            </ul>
-            <a href="mailto:sk9412@nyu.edu" class="nav-cta">Get in touch →</a>
-        </div>
-    </nav>
+    <div class="ambient-bg"></div>
 
     <div class="container">
-        <!-- HERO -->
-        <header id="about" class="reveal">
-            <div class="hero-subtitle">
-                <span class="dash"></span>
-                <span>Economics & Environmental Policy Analyst</span>
+        <!-- LEFT SIDEBAR -->
+        <header class="reveal">
+            <div>
+                <h1>Sameer Kamran</h1>
+                <h2 class="subtitle">Economist & Environmental Policy Analyst</h2>
+                <p class="bio">
+                    Building the bridge between macroeconomic policy and sustainable ecosystems. Specialized in ESG frameworks, circular economies, and Global South climate resilience.
+                </p>
+
+                <nav>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#education" class="active"><span class="nav-indicator"></span> Education</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#experience"><span class="nav-indicator"></span> Experience</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#projects"><span class="nav-indicator"></span> Projects</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#leadership"><span class="nav-indicator"></span> Leadership</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-            <h1 class="hero-name">Sameer<br>Kamran</h1>
-            <p class="hero-bio">
-                Bridging the intersection of macroeconomic policy, ESG finance, and climate resilience — specialized in building sustainable governance frameworks for the Global South.
-            </p>
-            <div class="hero-btns">
-                <a href="#experience" class="btn-primary">Experience</a>
-            </div>
-            <div class="hero-location">
-                <span class="dot"></span>
-                <span>Abu Dhabi, UAE</span>
+
+            <div class="social-links">
+                <a href="mailto:sk9412@nyu.edu" aria-label="Email"><i data-lucide="mail" class="w-6 h-6"></i></a>
+                <a href="https://linkedin.com/in/sameerkamran" target="_blank" aria-label="LinkedIn"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
             </div>
         </header>
 
+        <!-- RIGHT CONTENT -->
         <main>
+            <!-- EDUCATION -->
+            <section id="education">
+                <div class="card reveal">
+                    <div class="card-date">2022 — 2026</div>
+                    <div class="card-content">
+                        <h3>New York University Abu Dhabi</h3>
+                        <div class="card-subtitle">B.A. Economics (3.71) | Minor in Environmental Studies (4.0)</div>
+                        <p class="card-body">
+                            Global rotations at NYU Stern (NYC) and NYU Paris. Intensive focus on environmental economic policy and green macroeconomics.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">C++</span>
+                            <span class="tag">STATA</span>
+                            <span class="tag">ESG Metrics</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- EXPERIENCE -->
             <section id="experience">
-                <div class="section-header reveal">
-                    <h2>Where I've Worked</h2>
-                </div>
-
                 <div class="card reveal">
-                    <div class="card-top">
-                        <span class="card-date">JAN 2025 — PRESENT</span>
-                    </div>
-                    <h3 class="card-title">Eco-Awareness Specialist</h3>
-                    <div class="card-subtitle">Polygreen Pollution Control LLC | Abu Dhabi, UAE</div>
-                    <p class="card-body">
-                        Spearheading systemic waste-management initiatives for 250+ residential units, translating the UAE’s circular-economy roadmap into operational practice for 2,000+ community members.
-                    </p>
-                    <div class="tags">
-                        <span class="tag">Circular Economy</span>
-                        <span class="tag">Strategy</span>
-                        <span class="tag">Policy</span>
+                    <div class="card-date">2025 — PRESENT</div>
+                    <div class="card-content">
+                        <h3>Eco-Awareness Specialist <i data-lucide="arrow-up-right" class="arrow w-5 h-5"></i></h3>
+                        <div class="card-subtitle">Polygreen Pollution Control LLC</div>
+                        <p class="card-body">
+                            Spearheading waste-management for 250+ units, translating the UAE’s circular-economy roadmap into operational practice for 2,000+ members.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Circular Economy</span>
+                            <span class="tag">Impact Assessment</span>
+                            <span class="tag">NetZero 2050</span>
+                        </div>
                     </div>
                 </div>
 
                 <div class="card reveal">
-                    <div class="card-top">
-                        <span class="card-date">JUN 2025 — AUG 2025</span>
-                    </div>
-                    <h3 class="card-title">Sustainable Finance Intern</h3>
-                    <div class="card-subtitle">Pakistan International Airlines | Dubai, UAE</div>
-                    <p class="card-body">
-                        Building the strategic framework for Sustainable Aviation Fuel (SAF) acquisition and net-zero compliance auditing through data-driven financial modeling.
-                    </p>
-                    <div class="tags">
-                        <span class="tag">Financial Modeling</span>
-                        <span class="tag">ESG Compliance</span>
+                    <div class="card-date">JUN 2025 — AUG 2025</div>
+                    <div class="card-content">
+                        <h3>Sustainable Finance Intern <i data-lucide="arrow-up-right" class="arrow w-5 h-5"></i></h3>
+                        <div class="card-subtitle">Pakistan International Airlines</div>
+                        <p class="card-body">
+                            Directed resource allocation strategies for senior management through data-driven financial modeling for SAF acquisition.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Financial Modeling</span>
+                            <span class="tag">Sustainable Aviation</span>
+                        </div>
                     </div>
                 </div>
+            </section>
 
+            <!-- PROJECTS -->
+            <section id="projects">
                 <div class="card reveal">
-                    <div class="card-top">
-                        <span class="card-date">APR 2024 — JUN 2024</span>
-                    </div>
-                    <h3 class="card-title">Research Assistant</h3>
-                    <div class="card-subtitle">Mubadala Arabian Center for Climate Sciences</div>
-                    <p class="card-body">
-                        Utilized R and data cleaning pipelines to analyze marine ecological datasets, informing governmental conservation efforts across the Gulf coasts.
-                    </p>
-                    <div class="tags">
-                        <span class="tag">Data Analysis</span>
-                        <span class="tag">R Programming</span>
-                        <span class="tag">Marine Ecology</span>
+                    <div class="card-date">CAPSTONE</div>
+                    <div class="card-content">
+                        <h3>Circular Economy Readiness Index</h3>
+                        <p class="card-body">
+                            Developing a theoretical economic model examining the profitability of circular practices under specific policy constraints to guide firm-level resource allocation.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Economic Modeling</span>
+                            <span class="tag">Index Creation</span>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- LEADERSHIP -->
             <section id="leadership">
-                <div class="section-header reveal">
-                    <h2>Leadership</h2>
-                </div>
-
                 <div class="card reveal">
-                    <div class="card-top">
-                        <span class="card-date">COP30 BRAZIL</span>
+                    <div class="card-date">COP30</div>
+                    <div class="card-content">
+                        <h3>UAE Party Delegate <i data-lucide="arrow-up-right" class="arrow w-5 h-5"></i></h3>
+                        <p class="card-body">
+                            Represented youth perspectives in high-level negotiations with heads of state to amplify Global South climate resilience.
+                        </p>
+                        <div class="tags">
+                            <span class="tag">Diplomacy</span>
+                            <span class="tag">Policy</span>
+                        </div>
                     </div>
-                    <h3 class="card-title">UAE Party Delegate</h3>
-                    <p class="card-body">
-                        Representing youth perspectives in high-level negotiations with heads of state to amplify Global South climate resilience and adaptation strategies.
-                    </p>
-                    <div class="tags">
-                        <span class="tag">Climate Diplomacy</span>
-                        <span class="tag">Policy</span>
-                    </div>
-                </div>
-
-                <div class="card reveal">
-                    <div class="card-top">
-                        <span class="card-date">IRENA FORUM</span>
-                    </div>
-                    <h3 class="card-title">Youth Forum Delegate</h3>
-                    <p class="card-body">
-                        Selected from 50,000 applicants to collaborate on AI-driven digital solutions for expanding global renewable energy access.
-                    </p>
-                    <div class="tags">
-                        <span class="tag">Renewable Energy</span>
-                        <span class="tag">AI Policy</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- EDUCATION -->
-            <section id="education">
-                <div class="section-header reveal">
-                    <h2>Education</h2>
-                </div>
-
-                <div class="card reveal">
-                    <div class="card-top">
-                        <span class="card-date">2022 — 2026</span>
-                    </div>
-                    <h3 class="card-title">New York University Abu Dhabi</h3>
-                    <div class="card-subtitle">B.A. Economics (3.71) | Minor in Environmental Studies (4.0)</div>
-                    <p class="card-body">
-                        Global rotations at NYU Stern (NYC) and NYU Paris. Specialization in green macroeconomics and sustainability metrics.
-                    </p>
                 </div>
             </section>
         </main>
-
-        <footer class="reveal">
-            <p>© 2026 Sameer Kamran. Designed with intent.</p>
-        </footer>
     </div>
 
     <script>
         lucide.createIcons();
 
-        // Mouse Spotlight (Toned down)
+        // Ambient Movement
         document.addEventListener('mousemove', (e) => {
             document.documentElement.style.setProperty('--x', `${e.clientX}px`);
             document.documentElement.style.setProperty('--y', `${e.clientY}px`);
         });
 
-        // Reveal Observer
-        const revealObserver = new IntersectionObserver((entries) => {
+        // Scroll Spy & Reveal
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-item a');
+
+        const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.2, rootMargin: '-10% 0px -70% 0px' });
 
-        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-    </script>
-</body>
-</html>torAll('.reveal').forEach(el => revealObserver.observe(el));
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        sections.forEach(s => observer.observe(s));
     </script>
 </body>
 </html>
