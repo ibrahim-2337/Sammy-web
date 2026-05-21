@@ -253,14 +253,6 @@
             transform: translateY(0);
         }
 
-        footer {
-            padding: 6rem 0;
-            text-align: center;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
         /* Easter Egg Styles */
         .confetti {
             position: fixed;
@@ -304,12 +296,45 @@
             transition: all 1.2s cubic-bezier(0.17, 0.67, 0.16, 0.99);
         }
 
+        .stimulus-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(16, 185, 129, 0.9);
+            color: #0b1d19;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 3000;
+            transform: translateY(100px);
+            transition: transform 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+        }
+
+        .stimulus-toast.active {
+            transform: translateY(0);
+        }
+
+        #flagOverlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            z-index: 2500;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
     </style>
 </head>
 <body>
 
     <div class="spotlight"></div>
     <div id="gradMsg" class="grad-msg">CONGRATULATIONS ON GRADUATING, SAMEER! 🎓</div>
+    <div id="stimulusToast" class="stimulus-toast">ECONOMIC STIMULUS: Positive Externality Detected. 📈</div>
+    <div id="flagOverlay"></div>
 
     <div class="container">
         <!-- HERO -->
@@ -337,7 +362,7 @@
                     <div class="card-meta">2022 — 2026</div>
                     <div class="card-content">
                         <h3>New York University Abu Dhabi</h3>
-                        <div class="card-subtitle">B.A. Economics (3.71) | Minor in Environmental Studies (4.0)</div>
+                        <div class="card-subtitle" id="degreeTrigger" style="cursor: pointer;">B.A. Economics (3.71) | Minor in Environmental Studies (4.0)</div>
                         <p class="card-body">
                             Global scholar with rotations at NYU Stern (New York) and NYU Paris. Focusing on green macroeconomics and sustainability metrics.
                         </p>
@@ -487,13 +512,17 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // EASTER EGG 1: Keyboard "SAMEER"
+        // EASTER EGGS: SAMEER & COD
         let typed = "";
         document.addEventListener('keydown', (e) => {
             typed += e.key.toUpperCase();
-            if (typed.length > 6) typed = typed.substring(typed.length - 6);
-            if (typed === "SAMEER") {
+            if (typed.length > 10) typed = typed.substring(typed.length - 10);
+            
+            if (typed.endsWith("SAMEER")) {
                 launchCelebration();
+                typed = "";
+            } else if (typed.endsWith("COD")) {
+                launchStimulus();
                 typed = "";
             }
         });
@@ -506,48 +535,104 @@
             for (let i = 0; i < 100; i++) {
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
-                const colors = ['#10b981', '#34d399', '#60a5fa', '#3b82f6']; // Emeralds and Water Blues
+                const colors = ['#10b981', '#34d399', '#60a5fa', '#3b82f6'];
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 confetti.style.left = Math.random() * 100 + 'vw';
                 confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
-                if (Math.random() > 0.5) confetti.style.borderRadius = '2px 10px'; // Leaf shape
+                if (Math.random() > 0.5) confetti.style.borderRadius = '2px 10px';
                 document.body.appendChild(confetti);
                 setTimeout(() => confetti.remove(), 5000);
             }
         }
 
-        // EASTER EGG 3: Logo Cap Toss
+        function launchStimulus() {
+            const toast = document.getElementById('stimulusToast');
+            toast.classList.add('active');
+            setTimeout(() => toast.classList.remove('active'), 4000);
+
+            const nameRect = document.getElementById('heroName').getBoundingClientRect();
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('confetti');
+                particle.innerHTML = '💸';
+                particle.style.background = 'none';
+                particle.style.left = (nameRect.left + nameRect.width / 2) + 'px';
+                particle.style.top = (nameRect.top + window.scrollY) + 'px';
+                particle.style.fontSize = '1.5rem';
+                
+                const vx = (Math.random() - 0.5) * 20;
+                const vy = -Math.random() * 20;
+                
+                document.body.appendChild(particle);
+                
+                let px = nameRect.left + nameRect.width / 2;
+                let py = nameRect.top + window.scrollY;
+                let gravity = 0.5;
+                let time = 0;
+
+                const interval = setInterval(() => {
+                    time++;
+                    px += vx;
+                    py += vy + (gravity * time);
+                    particle.style.left = px + 'px';
+                    particle.style.top = py + 'px';
+                    particle.style.opacity = 1 - (time / 100);
+                    if (time > 100) {
+                        clearInterval(interval);
+                        particle.remove();
+                    }
+                }, 20);
+            }
+        }
+
+        // Cap Toss
         document.getElementById('logoTrigger').addEventListener('click', () => {
             const cap = document.createElement('div');
             cap.innerHTML = '🎓';
             cap.classList.add('cap-toss');
-            
-            // Start at the trigger
             const rect = document.getElementById('logoTrigger').getBoundingClientRect();
             cap.style.left = rect.left + 'px';
-            cap.style.top = rect.top + 'px';
+            cap.style.top = (rect.top + window.scrollY) + 'px';
             document.body.appendChild(cap);
-
-            // Target the name
             const target = document.getElementById('heroName').getBoundingClientRect();
-            
             setTimeout(() => {
                 cap.style.left = (target.left + target.width / 2) + 'px';
-                cap.style.top = (target.top - 40) + 'px';
+                cap.style.top = (target.top + window.scrollY - 40) + 'px';
                 cap.style.transform = 'rotate(360deg) scale(1.5)';
             }, 50);
-
             setTimeout(() => {
                 document.getElementById('heroName').style.textShadow = '0 0 30px #10b981';
                 document.getElementById('heroName').style.color = '#fff';
             }, 1200);
-
-            // Disappear after 5 seconds
             setTimeout(() => {
                 cap.style.opacity = '0';
                 cap.style.transform += ' translateY(-20px)';
                 setTimeout(() => cap.remove(), 1000);
             }, 5000);
+        });
+
+        // Global Scholar Flag Cycle
+        const flags = ['🇦🇿', '🇺🇿', '🇪🇬', '🇲🇽', '🇧🇷', '🇺🇸', '🇫🇷', '🇩🇪', '🇭🇺', '🇨🇿', '🇮🇹', '🇵🇰'];
+        let flagIdx = 0;
+        let isCycling = false;
+
+        document.getElementById('degreeTrigger').addEventListener('click', () => {
+            if (isCycling) return;
+            isCycling = true;
+            const overlay = document.getElementById('flagOverlay');
+            overlay.style.opacity = '1';
+            const interval = setInterval(() => {
+                overlay.innerHTML = flags[flagIdx];
+                flagIdx++;
+                if (flagIdx >= flags.length) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        overlay.style.opacity = '0';
+                        flagIdx = 0;
+                        isCycling = false;
+                    }, 1000);
+                }
+            }, 400);
         });
     </script>
 </body>
